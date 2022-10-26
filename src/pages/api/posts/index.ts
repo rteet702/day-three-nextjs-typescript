@@ -7,6 +7,7 @@ const handler = async (request: NextApiRequest, response: NextApiResponse) => {
     if (request.method === "GET") {
         await connectToMongo();
         await Post.find({})
+            .sort({ createdAt: -1 })
             .then((posts) => {
                 response.status(200).json({
                     posts,
