@@ -25,13 +25,7 @@ interface Props {
 
 const UserPost: NextPage<Props> = (props) => {
     const { post } = props;
-    const [user, setUser] = useState<User>({
-        _id: "",
-        name: "",
-        email: "",
-        password: "",
-        posts: [],
-    });
+    const [user, setUser] = useState<User>();
 
     const { localDate, localTime } = getDateStrings(post);
 
@@ -42,6 +36,10 @@ const UserPost: NextPage<Props> = (props) => {
                 setUser(user.data.user);
             });
     }, []);
+
+    if (!user) {
+        return <div>Loading...</div>;
+    }
 
     return (
         <div className="w-[500px] text-neutral-50 shadow-xl">
